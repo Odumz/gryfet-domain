@@ -1,19 +1,15 @@
-'use strict';
-const express = require('express');
+// 'use strict';
 
 // Constants
-const PORT = 8080;
-const HOST = '127.0.0.8';
+const app = require('./api/loaders/express');
+const PORT = process.env.OCX_PORT_DOMAIN || 55502;
+const HOST = '0.0.0.0';
 
-// App
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
 
-app.get('/home', (req, res) => {
-    res.send('Welcome to OCX-Domain');
+try {
+  app.listen(PORT, HOST, () => {
+    console.log(`Running on http://${HOST}:${PORT}`);
   });
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+} catch (e) {
+  console.error(e);
+};
