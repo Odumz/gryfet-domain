@@ -8,7 +8,7 @@ const routes = require('../routes/web');
 
 // const responseHandler = require('../utils/responseHandlers');
 
-const isProduction = false;
+const isProduction = true;
 
 
 // App
