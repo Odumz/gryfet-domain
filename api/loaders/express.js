@@ -6,7 +6,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const routes = require('../routes/web');
 
-const responseHandler = require('../utils/responseHandlers');
+// const responseHandler = require('../utils/responseHandlers');
 
 const isProduction = false;
 
@@ -36,7 +36,7 @@ app.get('/test', (req, res) => {
   return res.json({
     "OCX Schema": "v1",
     "OCXType": "Response",
-    "OCXComponent": "OCXAuth",
+    "OCXComponent": "OCXDomain",
     "OCXPayload": {}
   })
 });
@@ -49,8 +49,8 @@ app.get('/test', (req, res) => {
 app.get('/home', (req, res) => {
   return res.json({
     "OCX Schema": "v1",
-    "OCXType": "Response",
-    "OCXComponent": "OCXAuth",
+    "OCXType": "Request",
+    "OCXComponent": "OCXDomain",
     "OCXPayload": {}
   })
 });
@@ -59,7 +59,7 @@ app.post('/home', (req, res) => {
   return res.json({
     "OCX Schema": "v1",
     "OCXType": "Response",
-    "OCXComponent": "OCXAccess",
+    "OCXComponent": "OCXDomain",
     "OCXPayload": {}
   })
 });
