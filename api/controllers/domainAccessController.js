@@ -1,37 +1,40 @@
+const axios = require('axios');
+const { removeEntity, insertEntity, searchEntity } = require('../utils/request/data');
+const { Post, Get, Patch, Delete } = require('../utils/request');
+const { serverError, serverResponse } = require('../utils/serverResponse');
 
-/**
- * Gets the details of a single user
- *
- * @param {Object} request express request object
- * @param {Object} response express response object
- * @param {Function} next express next function
- *
- * @returns {Promise<Function | Object>} returns one of express next function or response object
- */
+class domainAccessController {
+    /**
+   * @name add
+   * @async
+   * @static
+   * @memberof domainAccessController
+   * @param {Object} req express request object
+   * @param {Object} res express response object
+   * @returns {JSON} JSON object with details of new user
+   */
 
-export const invite = async (req, res, next) => {
+  static async add(req, res) {
     try {
-
-        return successResponse(response, 'successfully retrieved user', 200, { user: userObject });
+        const { domain_name, domain_hosts_id, version, baseUrl} = req.body.OCXPayload;
+        const accessTable = {
+          table_name: "domain_access",
+          data: {
+              domain_name,
+              domain_hosts_id,
+              version,
+              baseUrl,
+              created_at: new Date()
+          },
+          relationships: []
+        }
+       const response = await Post(insertEntity()['url'], accessTable);
+      serverResponse(req, res, 201, {message: 'route added sucessfully', data: {...response}});
     } catch (error) {
-        return errorResponse(next, error.message, 500);
-    };
-};
+      return serverError(req, res, 500, { message: error.message });
+    }
+  }
 
-export const approve = async (req, res, next) => {
-    try {
+}
 
-        return successResponse(response, 'successfully retrieved user', 200, { user: userObject });
-    } catch (error) {
-        return errorResponse(next, error.message, 500);
-    };
-};
-
-export const reject = async (req, res, next) => {
-    try {
-
-        return successResponse(response, 'successfully retrieved user', 200, { user: userObject });
-    } catch (error) {
-        return errorResponse(next, error.message, 500);
-    };
-};
+module.exports = domainAccessController;
