@@ -1,0 +1,56 @@
+{
+  "name": "octopusx-domain",
+  "version": "1.0.0",
+  "description": "octopusx-domain service on Docker",
+  "author": "Oluwashina Odumosu <oluwashinaodumosu@gmail.com>",
+  "license": "ISC",
+  "main": "server.js",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express"
+  ],
+  "scripts": {
+    "start": "nodemon --exec babel-node server",
+    "prod:build": "npm run clean && npm run build && npm run start",
+    "build": "babel server --out-dir dist",
+    "clean": "rm -rf ./build ",
+    "test": "nyc mocha --timeout 10000 -r esm --exit",
+    "list:instance": "pm2 list",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "stop:all": "pm2 stop all"
+  },
+  "dependencies": {
+    "amqplib": "^0.6.0",
+    "app-root-path": "^3.0.0",
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "morgan": "^1.10.0",
+    "pm2": "^4.5.0",
+    "swagger-jsdoc": "^5.0.1",
+    "swagger-ui-express": "^4.1.4",
+    "uuidv4": "^6.2.4",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.1",
+    "@babel/runtime": "^7.12.5",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6",
+    "nyc": "^15.1.0"
+  }
+}
