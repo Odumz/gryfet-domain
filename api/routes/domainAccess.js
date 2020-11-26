@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
   });
 });
 
-
 /**
  * @swagger
  * /api/v1/domain_access:
