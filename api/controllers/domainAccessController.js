@@ -63,7 +63,7 @@ class domainAccessController {
               count: null,
               pagination: null
           }
-          const response = await Post(url, searchData);
+          const response = await Get(url, searchData);
           if(response.data.length < 1) {
            return serverResponse(req, res, 201, {message: 'domain does not exist' });
           } 
@@ -107,7 +107,7 @@ class domainAccessController {
               count: null,
               pagination: null
           }
-          const response = await Post(url, searchData);
+          const response = await Get(url, searchData);
           if(response.data.length < 1) {
            return serverResponse(req, res, 201, {message: 'no domain exists here' });
           } 
