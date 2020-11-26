@@ -7,6 +7,12 @@ const verification = require('../middleware/auth');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.status(200).json({
+    "message": "Welcome to OctopusX Domain Service. This is domain access",
+  });
+});
+
 
 /**
  * @swagger
@@ -24,7 +30,7 @@ const router = express.Router();
  *      '409':
  *        description: conflicts, domain has been created before
  */
-router.post('/', emptyBody, CommonValidator.checkProfileInput(), verification, Profile.add);
+router.post('/create', emptyBody, CommonValidator.checkDomainInput(), verification, domainAccessController.add);
 
 /**
  * @swagger
@@ -42,7 +48,26 @@ router.post('/', emptyBody, CommonValidator.checkProfileInput(), verification, P
  *      '409':
  *        description: conflicts, profile has been created before
  */
-router.get('fetch/:id', verification, domainAccessController.fetch);
+router.get('/fetch/:id', verification, domainAccessController.find);
+
+/**
+ * @swagger
+ * /api/v1/domain_access/{id}:
+ *  get:
+ *    security:
+ *      - bearerAuth: []    
+ *    summary: Route for get a profile in domain microservice
+ *    description: get a profile in domain microservice
+ *    consumes:
+ *    - application/json
+ *    responses:
+ *      '200':
+ *        description: OK
+ *      '409':
+ *        description: conflicts, profile has been created before
+ */
+router.get('/fetch', verification, domainAccessController.findAll);
+
 
 /**
  * @swagger
@@ -58,18 +83,6 @@ router.get('fetch/:id', verification, domainAccessController.fetch);
  *      '409':
  *        description: conflicts, profile has been created before
  */
-router.delete('/:id', verification, Profile.remove);
-
-
-router.get('/', (req, res, next) => {
-    res.status(200).json({
-      "message": "Welcome to OctopusX Domain Service. This is domain access",
-    });
-  });
-
-router.post('/create', function(req, res) {domainAccessController.create});
-router.post('/fetch', function(req, res) {domainAccessController.fetch});
-router.post('/update', function(req, res) {domainAccessController.update});
-router.post('/delete', function(req, res) {domainAccessController.delete});
+router.delete('/:id', verification, domainAccessController.remove);
 
 module.exports = router;

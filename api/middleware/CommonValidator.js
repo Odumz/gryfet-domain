@@ -53,7 +53,7 @@ export default class CommonValidator {
    * @returns {function} call to a Check API middleware
    * @memberof Validation
    */
-  static checkProfileInput() {
+  static checkDomainInput() {
     return [
         CommonValidator.checkId(),
         CommonValidator.checkDomainId(),

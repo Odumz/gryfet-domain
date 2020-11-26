@@ -58,8 +58,57 @@ class Setup {
                 }
             ]
           }
-         const response = await Post(createUrl, domainHostsTable)
-          serverResponse(req, res, 200, {message: 'setup domain_hosts successfully', ...response});
+
+
+        const domainAccessTable = {
+          database_type: "default",
+          host_name: "default",
+          table_name: "domain_access",
+          visibility: true,
+          fields: [
+              {
+                  field_name: "domain_name",
+                  field_type: "string",
+                  visibility: true,
+                  nullable: false
+              },
+              {
+                  field_name: "identifier",
+                  field_type: "string",
+                  visibility: true,
+                  nullable: false
+              },
+              {
+                  field_name: "domain_hosts_id",
+                  field_type: "integer",
+                  visibility: true,
+                  nullable: false
+              },
+              {
+                  field_name: "type",
+                  field_type: "string",
+                  visibility: true,
+                  nullable: false
+              },
+              {
+                  field_name: "baseUrl",
+                  field_type: "string",
+                  visibility: true,
+                  nullable: true
+              },
+              {
+                  field_name: "created_at",
+                  field_type: "timestamp",
+                  visibility: true,
+                  nullable: true
+              }
+          ]
+        }
+
+          const domainHostsResponse = await Post(createUrl, domainHostsTable);
+          serverResponse(req, res, 200, {message: 'setup domain_hosts successfully', ...domainHostsResponse});
+          const domainAccessResponse = await Post(createUrl, domainAccessTable);
+          serverResponse(req, res, 200, {message: 'setup domain_access successfully', ...domainAccessResponse});
     } catch (error) {
       return serverError(req, res, 500, { message: error.message });
     }

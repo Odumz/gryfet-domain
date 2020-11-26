@@ -15,5 +15,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+RUN npm run-script build
+
 EXPOSE 55502
-CMD [ "node", "dist/server.js" ]
+
+CMD [ "npm", "run", "start:dev" ]

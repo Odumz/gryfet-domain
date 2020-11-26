@@ -45,6 +45,7 @@ router.post('/create', emptyBody, verification, domainHostController.add);
  *      '409':
  *        description: conflicts, profile has been created before
  */
+
 router.get('/fetch/:id', verification, domainHostController.find);
 
 /**
@@ -61,7 +62,25 @@ router.get('/fetch/:id', verification, domainHostController.find);
  *      '409':
  *        description: conflicts, profile has been created before
  */
-router.delete('/delete/:id', verification, domainHostController.remove);
+
+router.get('/fetch', verification, domainHostController.findAll);
+
+/**
+ * @swagger
+ * /api/v1/domain_host/fetch/:id
+ *  delete:
+ *    summary: Route for delete a route in access microservice
+ *    description: delete a route in access microservice
+ *    consumes:
+ *    - application/json
+ *    responses:
+ *      '200':
+ *        description: OK
+ *      '409':
+ *        description: conflicts, profile has been created before
+ */
+
+router.delete('/:id', verification, domainHostController.remove);
 
 
 module.exports = router;

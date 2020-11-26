@@ -11,11 +11,12 @@
     "express"
   ],
   "scripts": {
-    "start": "nodemon --exec babel-node server",
-    "prod:build": "npm run clean && npm run build && npm run start",
-    "build": "babel server --out-dir dist",
+    "start:dev": "nodemon --exec babel-node ./api/server.js ",
+    "start": "node dist/server.js",
     "clean": "rm -rf ./build ",
     "test": "nyc mocha --timeout 10000 -r esm --exit",
+    "build": "babel api --out-dir dist",
+    "prod:build": "npm run clean && npm run build && npm run start",
     "list:instance": "pm2 list",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "stop:all": "pm2 stop all"
@@ -39,11 +40,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
+    "@babel/core": "^7.12.8",
     "@babel/node": "^7.12.6",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
     "@babel/register": "^7.12.1",
     "@babel/runtime": "^7.12.5",
     "chai": "^4.2.0",
