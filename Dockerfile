@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:12.18-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -19,4 +19,4 @@ RUN npm run-script build
 
 EXPOSE 55502
 
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "npm", "run", "start" ]

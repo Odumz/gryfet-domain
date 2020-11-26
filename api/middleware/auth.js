@@ -1,6 +1,5 @@
-
 const verification = (req, res, next) => {
-    next();
-}
+  next();
+};
 
 module.exports = verification;

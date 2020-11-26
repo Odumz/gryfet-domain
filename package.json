@@ -14,7 +14,7 @@
     "start:dev": "nodemon --exec babel-node ./api/server.js ",
     "start": "node dist/server.js",
     "clean": "rm -rf ./build ",
-    "test": "nyc mocha --timeout 10000 -r esm --exit",
+    "test": "mocha --timeout 10000 -r esm --exit",
     "build": "babel api --out-dir dist",
     "prod:build": "npm run clean && npm run build && npm run start",
     "list:instance": "pm2 list",
@@ -47,11 +47,18 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/register": "^7.12.1",
     "@babel/runtime": "^7.12.5",
+    "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "eslint": "^7.14.0",
+    "eslint-config-import": "^0.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "esm": "^3.2.25",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.0"
   }
 }

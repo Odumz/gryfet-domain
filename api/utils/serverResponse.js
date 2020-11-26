@@ -10,15 +10,15 @@ const serverResponse = (req, res, code, data) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}
   - ${code} - ${JSON.stringify(data)}
   `);
-  res.status(code).json({ 
-    OCX_Schema: "v1",
-    OCXType: "Response",
-    OCXComponent: "OCXDomain",
+  res.status(code).json({
+    OCX_Schema: 'v1',
+    OCXType: 'Response',
+    OCXComponent: 'OCXDomain',
     OCXPayload: {
-      ...data
-    }
-   });
-}
+      ...data,
+    },
+  });
+};
 
 /**
  * @name serverError
@@ -26,13 +26,13 @@ const serverResponse = (req, res, code, data) => {
  * @returns {JSON} JSON response with server error details
  */
 const serverError = (req, res, code, message) =>
-  res.status(500).json({ 
-    OCX_Schema: "v1",
-    OCXType: "Response",
-    OCXComponent: "OCXDomain",
+  res.status(500).json({
+    OCX_Schema: 'v1',
+    OCXType: 'Response',
+    OCXComponent: 'OCXDomain',
     OCXPayload: {
-      ...message
-    }
-   });
-  
+      ...message,
+    },
+  });
+
 module.exports = { serverResponse, serverError };

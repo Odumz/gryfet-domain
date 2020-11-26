@@ -35,5 +35,4 @@ routes.post('/rollback', Setup.Reset);
  */
 routes.post('/', Setup.Create);
 
-
 module.exports = routes;

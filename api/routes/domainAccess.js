@@ -1,15 +1,15 @@
 // constants
 const express = require('express');
 const domainAccessController = require('../controllers/domainAccessController');
-const CommonValidator = require('../middleware/CommonValidator');
-const emptyBody = require('../middleware/emptyBody');
+// const CommonValidator = require('../middleware/CommonValidator');
+// const emptyBody = require('../middleware/emptyBody');
 const verification = require('../middleware/auth');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
   res.status(200).json({
-    "message": "Welcome to OctopusX Domain Service. This is domain access",
+    message: 'Welcome to OctopusX Domain Service. This is domain access',
   });
 });
 
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
  * /api/v1/domain_access:
  *  post:
  *    security:
- *      - bearerAuth: []     
+ *      - bearerAuth: []
  *    summary: Route for creating a record in domain microservice
  *    description: creating a record in domain microservice
  *    consumes:
@@ -29,14 +29,14 @@ router.get('/', (req, res) => {
  *      '409':
  *        description: conflicts, domain has been created before
  */
-router.post('/create', emptyBody, CommonValidator.checkDomainInput(), verification, domainAccessController.add);
+router.post('/create', verification, domainAccessController.add);
 
 /**
  * @swagger
  * /api/v1/domain_access/{id}:
  *  get:
  *    security:
- *      - bearerAuth: []    
+ *      - bearerAuth: []
  *    summary: Route for get a profile in domain microservice
  *    description: get a profile in domain microservice
  *    consumes:
@@ -54,7 +54,7 @@ router.get('/fetch/:id', verification, domainAccessController.find);
  * /api/v1/domain_access/{id}:
  *  get:
  *    security:
- *      - bearerAuth: []    
+ *      - bearerAuth: []
  *    summary: Route for get a profile in domain microservice
  *    description: get a profile in domain microservice
  *    consumes:
@@ -66,7 +66,6 @@ router.get('/fetch/:id', verification, domainAccessController.find);
  *        description: conflicts, profile has been created before
  */
 router.get('/fetch', verification, domainAccessController.findAll);
-
 
 /**
  * @swagger

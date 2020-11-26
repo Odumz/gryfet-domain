@@ -11,14 +11,14 @@ export default class RouteValidator {
    * @returns {function} call to a Check API middleware
    * @memberof RouteValidator
    */
-   static checkName() {
+  static checkName() {
     return CommonValidator.genericCheck('name')
-           .trim()
-           .isLength({ min: 2 })
-           .isString();
-   }
+      .trim()
+      .isLength({ min: 2 })
+      .isString();
+  }
 
-   /**
+  /**
    * Domain Id validator
    * @returns {function} call to a Check API middleware
    * @memberof Validation
@@ -32,19 +32,19 @@ export default class RouteValidator {
       );
   }
 
-     /**
+  /**
    * Domain Id validator
    * @returns {function} call to a Check API middleware
    * @memberof Validation
    */
   static checkParent() {
     return CommonValidator.genericCheck('parent')
-    .trim()
-    .isLength({ min: 2 })
-    .isString();
+      .trim()
+      .isLength({ min: 2 })
+      .isString();
   }
 
-    /**
+  /**
    * Name validator to be used by all others
    * @param {string} field
    * @returns {function} call to a Check API middleware
@@ -52,12 +52,12 @@ export default class RouteValidator {
    */
   static checkHost() {
     return CommonValidator.genericCheck('host')
-           .trim()
-           .isLength({ min: 2 })
-           .isString();
-   }
+      .trim()
+      .isLength({ min: 2 })
+      .isString();
+  }
 
-    /**
+  /**
    * Name validator to be used by all others
    * @param {string} field
    * @returns {function} call to a Check API middleware
@@ -65,12 +65,12 @@ export default class RouteValidator {
    */
   static checkTable() {
     return CommonValidator.genericCheck('table')
-           .trim()
-           .isLength({ min: 2 })
-           .isString();
-   }
+      .trim()
+      .isLength({ min: 2 })
+      .isString();
+  }
 
-    /**
+  /**
    * Investor create Validator validation
    * @returns {array} an array of Check API middlewares
    * @memberof InvestorValidator
@@ -79,14 +79,8 @@ export default class RouteValidator {
     return CommonValidator.genericCheck('method')
       .trim()
       .isLength({ min: 2 })
-      .customSanitizer(value => CommonValidator.makeLowerCase(value))
-      .isIn([
-        'post',
-        'get',
-        'patch',
-        'delete',
-        'put'
-      ])
+      .customSanitizer((value) => CommonValidator.makeLowerCase(value))
+      .isIn(['post', 'get', 'patch', 'delete', 'put']);
   }
 
   /**
@@ -101,7 +95,7 @@ export default class RouteValidator {
       .isString();
   }
 
-    /**
+  /**
    * Investor create Validator validation
    * @returns {array} an array of Check API middlewares
    * @memberof InvestorValidator
@@ -110,7 +104,7 @@ export default class RouteValidator {
     return CommonValidator.genericCheck('record.*');
   }
 
-      /**
+  /**
    * List Startup validator
    * @returns {function} call to a Check API middleware
    * @memberof Validation
@@ -125,8 +119,7 @@ export default class RouteValidator {
       RouteValidator.checkMethod(),
       RouteValidator.checkFields(),
       RouteValidator.checkRecord(),
-      checkForErrors
+      checkForErrors,
     ];
   }
-
 }

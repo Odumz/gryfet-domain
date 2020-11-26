@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { check, body } from 'express-validator';
 import errorChecker from './errorChecker';
 
@@ -20,7 +21,7 @@ export default class CommonValidator {
       .isEmpty({ ignore_whitespace: true })
       .withMessage(`${field} cannot be blank`);
   }
-   /**
+  /**
    * Domain Id validator
    * @returns {function} call to a Check API middleware
    * @memberof Validation
@@ -34,7 +35,7 @@ export default class CommonValidator {
       );
   }
 
-     /**
+  /**
    * Domain Id validator
    * @returns {function} call to a Check API middleware
    * @memberof Validation
@@ -48,28 +49,28 @@ export default class CommonValidator {
       );
   }
 
-    /**
+  /**
    * List Startup validator
    * @returns {function} call to a Check API middleware
    * @memberof Validation
    */
   static checkDomainInput() {
     return [
-        CommonValidator.checkId(),
-        CommonValidator.checkDomainId(),
-        errorChecker
+      CommonValidator.checkId(),
+      CommonValidator.checkDomainId(),
+      errorChecker,
     ];
   }
 
   /**
- * @name makeLowerCase
- * @param {String} value string to be sanitized
- * @returns {String} lower case string
- */
-static makeLowerCase (value)  {
-  if (value !== '') {
-    return value.toLowerCase();
+   * @name makeLowerCase
+   * @param {String} value string to be sanitized
+   * @returns {String} lower case string
+   */
+  static makeLowerCase(value) {
+    if (value !== '') {
+      return value.toLowerCase();
+    }
+    return value;
   }
-  return value;
-};
 }
