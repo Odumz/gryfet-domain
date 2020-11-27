@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const axios = require('axios');
 const {
   removeEntity,
@@ -88,21 +89,21 @@ class domainAccessController {
           message: 'domain does not exist',
         });
       }
-      let baseUrls = `${response.data[0].baseUrl}${response.data[0].name}`;
-      if (query) {
-        baseUrls = `${baseUrls}${query}`;
-      }
-      const responseData = await axios({
-        method,
-        url: baseUrls,
-        data: {
-          ...payload,
-        },
-      });
-      console.log(responseData, 'this is the response data>>>>');
+      // let baseUrls = `${response.data[0].baseUrl}${response.data[0].name}`;
+      // if (query) {
+      //   baseUrls = `${baseUrls}${query}`;
+      // }
+      // const responseData = await axios({
+      //   method,
+      //   url: baseUrls,
+      //   data: {
+      //     ...payload,
+      //   },
+      // });
+      console.log(response, 'this is the response data>>>>');
       serverResponse(req, res, 200, {
         message: 'domain info fetched successfully',
-        ...responseData.data,
+        ...response.data,
       });
     } catch (error) {
       return serverError(req, res, 500, { message: error.message });
@@ -137,21 +138,21 @@ class domainAccessController {
           message: 'no domain exists here',
         });
       }
-      let baseUrls = `${response.data[0].baseUrl}${response.data[0].name}`;
-      if (query) {
-        baseUrls = `${baseUrls}${query}`;
-      }
-      const responseData = await axios({
-        method,
-        url: baseUrls,
-        data: {
-          ...payload,
-        },
-      });
-      console.log(responseData, 'this is the response data>>>>');
+      // let baseUrls = `${response.data[0].baseUrl}${response.data[0].name}`;
+      // if (query) {
+      //   baseUrls = `${baseUrls}${query}`;
+      // }
+      // const responseData = await axios({
+      //   // method,
+      //   // url: baseUrls,
+      //   data: {
+      //     ...payload,
+      //   },
+      // });
+      console.log(response, 'this is the response data>>>>');
       serverResponse(req, res, 200, {
         message: 'domain accesses fetched successfully',
-        ...responseData.data,
+        ...response.data,
       });
     } catch (error) {
       return serverError(req, res, 500, { message: error.message });

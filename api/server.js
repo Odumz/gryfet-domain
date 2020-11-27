@@ -1,30 +1,17 @@
-console.log('Hi oh there');
 // Constants
 const express = require('express');
-console.log('Hi there');
 // import express, { json, urlencoded } from 'express';
 const swaggerUi = require('swagger-ui-express');
-console.log('Hi la there');
 const swaggerJsDoc = require('swagger-jsdoc');
-console.log('Hi cun there');
 const cors = require('cors');
-console.log('Hi bila there');
 const logger = require('./utils/logger');
-console.log('Hi osx there');
 const morgan = require('morgan');
-console.log('Hi esr there');
 require('dotenv').config();
-console.log('Hi tre there');
 const routes = require('./routes');
-console.log('Hi los there');
 // const Post = require('./utils/request/index');
-console.log('Hi pla there');
 // const addEntity = require('./utils/request/data');
 
-console.log('Hi there');
-
 const PORT = process.env.OCX_PORT_DOMAIN || 55502;
-console.log('Nah Ijabs teach me');
 const options = {
   // List of files to be processed. You can also set globs './routes/*.js'
   apis: ['./api/server.js', './api/routes/*js'],
@@ -58,7 +45,6 @@ const options = {
 };
 
 const specs = swaggerJsDoc(options);
-console.log('how to use');
 
 const app = express();
 
@@ -93,7 +79,7 @@ const HOST = '0.0.0.0';
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to OCX:Domain');
 });
-app.use('/domain/v1', routes);
+app.use('/api/v1', routes);
 app.use('*', (req, res) => {
   res.status(404).send('Not Found');
 });

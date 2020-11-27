@@ -59,12 +59,12 @@ services:
   #   ports:
   #   - "5004:55505"
 
-  # domain:
-  #   image: ekoopensource/octopusx-domain:v1.02
-  #   env_file:
-  #     - .env
-  #   ports:
-  #   - "5005:55502"
+  domain:
+    image: ekoopensource/octopusx-domain:v1.02
+    env_file:
+      - .env
+    ports:
+    - "5005:55502"
     
   # base:
   #   image: ekoopensource/octopusx-base
