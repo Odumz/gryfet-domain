@@ -1,12 +1,40 @@
 #you can access the endpoints using : http://localhost:9000
-
-version: '3.6'
+version: '3'
 services:
-  octopusx_data:
+  # octopusx console service
+  console:
+    image: ekoopensource/octopusx-console:v1.0
+    ports:
+      - "5009:8080"
+    env_file:
+      - .env
+
+  # octopusx access service
+  access:
+    image: ekoopensource/octopusx-access:v1.9
+    ports:
+      - "5001:55504"
+    depends_on:
+      - data
+    links:
+      - data:data_host_url
+
+  # octopusx auth service
+  auth:
+    image: ekoopensource/octopusx-auth:v1.1
+    ports:
+      - "5002:55501"
+  profile:
+    image: ekoopensource/octopusx-profile:v1.01
+    ports:
+      - "5003:55503"
+
+  # octopusx data service
+  data:
     container_name: octopusx_data
     image: ekoopensource/octopusx-data:v1.0
     ports:
-      - "9000:55505"
+      - "5004:55505"
     depends_on:
       - octopusx_db
     links:
@@ -25,48 +53,16 @@ services:
       MYSQL_DATABASE: ocx
       MYSQL_USER: root
       MYSQL_PASSWORD: NULL
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+    # healthcheck:
+    #   test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+    #   timeout: 20s
+    #   retries: 10
       
-  # console:
-  #   image: ekoopensource/octopusx-console
-  #   ports:
-  #     - "5000:55500"
-  #   env_file:
-  #     - .env
-
-  # access:
-  #   image: ekoopensource/octopusx-access:v1.01
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "5001:55504"
-
-  # auth:
-  #   image: ekoopensource/octopusx-auth
-  #   ports:
-  #   - "5002:55501"
-
-  # profile:
-  #   image: ekoopensource/octopusx-profile
-  #   ports:
-  #   - "5003:55503"
-
-  # data:
-  #   image: ekoopensource/octopusx-data:v1.0
-  #   ports:
-  #   - "5004:55505"
-
+  # octopusx domain service
   domain:
+    container_name: octopusx_domain
     image: ekoopensource/octopusx-domain:v1.02
-    env_file:
-      - .env
+    depends_on:
+      - data
     ports:
     - "5005:55502"
-    
-  # base:
-  #   image: ekoopensource/octopusx-base
-  #   ports:
-  #     - "5006:55506"

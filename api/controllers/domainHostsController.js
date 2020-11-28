@@ -5,7 +5,7 @@ const {
   searchEntity,
 } = require('../utils/request/data');
 // eslint-disable-next-line no-unused-vars
-const { Post, Get, Patch, Delete } = require('../utils/request/index');
+const { Post } = require('../utils/request/index');
 // eslint-disable-next-line no-unused-vars
 const axios = require('axios');
 
@@ -21,7 +21,7 @@ class DomainHost {
    */
   static async add(req, res) {
     try {
-      const { domain_name, identifier, type, baseUrl } = req.body.OCXPayload;
+      const { domain_name, identifier, type, baseUrl } = req.body;
       const domainTable = {
         table_name: 'domain_hosts',
         data: {
@@ -33,7 +33,9 @@ class DomainHost {
         },
         relationships: [],
       };
+      // console.log(domainTable);
       const response = await Post(insertEntity()['url'], domainTable);
+      // console.log(response);
       serverResponse(req, res, 201, {
         message: 'Domain added sucessfully',
         data: { ...response },
@@ -54,14 +56,14 @@ class DomainHost {
    */
   static async find(req, res) {
     try {
-      const { domain_name, identifier, type } = req.body.OCXPayload;
+      // const { domain_name, identifier, type } = req.body.OCXPayload;
       const url = searchEntity()['url'];
       const searchData = {
         table_name: 'domain_hosts',
         where: [
-          { column: 'domain_name', operation: '=', value: domain_name },
-          { column: 'identifier', operation: '=', value: identifier },
-          { column: 'type', operation: '=', value: type },
+          { column: 'id', operation: '=', value: req.params.id },
+          // { column: 'identifier', operation: '=', value: identifier },
+          // { column: 'type', operation: '=', value: type },
         ],
         joins: [],
         reverse_joins: [],
@@ -69,7 +71,7 @@ class DomainHost {
         count: null,
         pagination: null,
       };
-      const response = await Get(url, searchData);
+      const response = await Post(url, searchData);
       if (response.data.length < 1) {
         return serverResponse(req, res, 201, {
           message: 'domain does not exist',
@@ -86,7 +88,7 @@ class DomainHost {
       //     ...payload,
       //   },
       // });
-      console.log(response, 'this is the response data>>>>');
+      // console.log(response, 'this is the response data>>>>');
       serverResponse(req, res, 200, {
         message: 'domain info fetched successfully',
         ...response.data,
@@ -118,7 +120,7 @@ class DomainHost {
         count: null,
         pagination: null,
       };
-      const response = await Get(url, searchData);
+      const response = await Post(url, searchData);
       if (response.data.length < 1) {
         return serverResponse(req, res, 201, {
           message: 'no domain exists here',
@@ -135,7 +137,7 @@ class DomainHost {
       //     ...payload,
       //   },
       // });
-      console.log(response, 'this is the response data>>>>');
+      // console.log(response, 'this is the response data>>>>');
       serverResponse(req, res, 200, {
         message: 'domain hosts fetched successfully',
         ...response.data,
@@ -156,25 +158,25 @@ class DomainHost {
    */
   static async remove(req, res) {
     try {
-      const { domain_name, identifier, type, baseUrl } = req.body.OCXPayload;
+      // const { domain_name, identifier, type, baseUrl } = req.body.OCXPayload;
       const domainTable = {
         table_name: 'domain_hosts',
         where: [
-          { column: 'domain_name', operation: '=', value: domain_name },
-          { column: 'identifier', operation: '=', value: identifier },
-          { column: 'type', operation: '=', value: type },
-          { column: 'baseUrl', operation: '=', value: baseUrl },
+          { column: 'id', operation: '=', value: req.params.id },
+          // { column: 'identifier', operation: '=', value: identifier },
+          // { column: 'type', operation: '=', value: type },
+          // { column: 'baseUrl', operation: '=', value: baseUrl },
         ],
         order: { column: 'domain_name', operation: 'asc' },
         count: null,
       };
-      const response = await Delete(removeEntity()['url'], domainTable);
+      const response = await Post(removeEntity()['url'], domainTable);
       serverResponse(req, res, 200, {
         message: `domain removed successfully`,
         response,
       });
     } catch (error) {
-      console.log(error, 'this is the error');
+      // console.log(error, 'this is the error');
       return serverError(req, res, 500, { message: error.message });
     }
   }

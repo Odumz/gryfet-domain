@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /api/v1/domain_access:
+ * /api/v1/domain_access/create:
  *  post:
  *    security:
  *      - bearerAuth: []
@@ -33,53 +33,53 @@ router.post('/create', verification, domainAccessController.add);
 
 /**
  * @swagger
- * /api/v1/domain_access/{id}:
+ * /api/v1/domain_access/fetch/{id}:
  *  get:
  *    security:
  *      - bearerAuth: []
- *    summary: Route for get a profile in domain microservice
- *    description: get a profile in domain microservice
+ *    summary: Route for get a domain_access in domain microservice
+ *    description: get a domain_access in domain microservice
  *    consumes:
  *    - application/json
  *    responses:
  *      '200':
  *        description: OK
  *      '409':
- *        description: conflicts, profile has been created before
+ *        description: conflicts, domain_access not found
  */
 router.get('/fetch/:id', verification, domainAccessController.find);
 
 /**
  * @swagger
- * /api/v1/domain_access/{id}:
+ * /api/v1/domain_access/fetch:
  *  get:
  *    security:
  *      - bearerAuth: []
- *    summary: Route for get a profile in domain microservice
- *    description: get a profile in domain microservice
+ *    summary: Route for get all domain_accesses in domain microservice
+ *    description: get all domain_accesses in domain microservice
  *    consumes:
  *    - application/json
  *    responses:
  *      '200':
  *        description: OK
  *      '409':
- *        description: conflicts, profile has been created before
+ *        description: conflicts, no domain_access found
  */
 router.get('/fetch', verification, domainAccessController.findAll);
 
 /**
  * @swagger
- * /api/v1/domain/profile/{id}:
+ * /api/v1/domain_access/{id}:
  *  delete:
- *    summary: Route for delete a profile in domain microservice
- *    description: delete a profile in domain microservice
+ *    summary: Route for delete a domain_access in domain microservice
+ *    description: delete a domain_access in domain microservice
  *    consumes:
  *    - application/json
  *    responses:
  *      '200':
  *        description: OK
  *      '409':
- *        description: conflicts, profile has been created before
+ *        description: conflicts, domain_access not found
  */
 router.delete('/:id', verification, domainAccessController.remove);
 

@@ -17,7 +17,7 @@ const routes = express.Router();
  *      '409':
  *        description: conflicts, profile has been created before
  */
-routes.post('/rollback', Setup.Reset);
+routes.post('/init', Setup.DBSetup);
 
 /**
  * @swagger

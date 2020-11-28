@@ -1,4 +1,3 @@
-
 import { validationResult } from 'express-validator';
 /**
  * @name checkForErrors
@@ -21,8 +20,10 @@ export default (request, response, next) => {
     errors[`${location}`][`${param}`] = msg;
     return errors;
   };
-  const validationResults = validationResult(request).array({ onlyFirstError: true });
-  validationResults.forEach(resultObject => errorFormatter(resultObject));
+  const validationResults = validationResult(request).array({
+    onlyFirstError: true,
+  });
+  validationResults.forEach((resultObject) => errorFormatter(resultObject));
   if (Object.keys(errors).length > 0) {
     response.status(400).json({ ...errors });
   } else {

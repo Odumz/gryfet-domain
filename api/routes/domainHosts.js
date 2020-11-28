@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /api/v1/domain_host/routes:
+ * /api/v1/domain_host/create:
  *  post:
  *    summary: Route for creating a new in domain_host route
  *    description: creating a new in domain_host route in domain_host microservice
@@ -25,57 +25,57 @@ router.get('/', (req, res) => {
  *      '200':
  *        description: OK
  *      '409':
- *        description: conflicts, profile has been created before
+ *        description: conflicts, domain_host has been created before
  */
 router.post('/create', verification, domainHostController.add);
 
 /**
  * @swagger
- * /api/v1/domain_host/create:
+ * /api/v1/domain_host/fetch/:id:
  *  get:
- *    summary: Route for get a route in access microservice
- *    description: get a domain in domain microservice
+ *    summary: Route for get a domain_host in domain microservice
+ *    description: get a domain_host in domain microservice
  *    consumes:
  *    - application/json
  *    responses:
  *      '200':
  *        description: OK
- *      '409':
- *        description: conflicts, domain has been created before
+ *      '404':
+ *        description: conflicts, domain_host not found
  */
 
 router.get('/fetch/:id', verification, domainHostController.find);
 
 /**
  * @swagger
- * /api/v1/domain_host/fetch/:id:
+ * /api/v1/domain_host/fetch:
  *  delete:
- *    summary: Route for delete a route in access microservice
- *    description: delete a route in access microservice
+ *    summary: Route for fetch all domain_hosts in domain microservice
+ *    description: fetch all domain_hosts in domain microservice
  *    consumes:
  *    - application/json
  *    responses:
  *      '200':
  *        description: OK
- *      '409':
- *        description: conflicts, profile has been created before
+ *      '404':
+ *        description: conflicts, no domain_host found
  */
 
 router.get('/fetch', verification, domainHostController.findAll);
 
 /**
  * @swagger
- * /api/v1/domain_host/fetch/:id:
+ * /api/v1/domain_host/:id:
  *  delete:
- *    summary: Route for delete a route in access microservice
- *    description: delete a route in access microservice
+ *    summary: Route for delete a domain_host in domain microservice
+ *    description: delete a domain_host in domain microservice
  *    consumes:
  *    - application/json
  *    responses:
  *      '200':
  *        description: OK
- *      '409':
- *        description: conflicts, profile has been created before
+ *      '404':
+ *        description: conflicts, domain_host not found
  */
 
 router.delete('/:id', verification, domainHostController.remove);

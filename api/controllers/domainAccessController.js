@@ -6,7 +6,7 @@ const {
   searchEntity,
 } = require('../utils/request/data');
 // eslint-disable-next-line no-unused-vars
-const { Post, Get, Patch, Delete } = require('../utils/request');
+const { Post } = require('../utils/request/index');
 const { serverError, serverResponse } = require('../utils/serverResponse');
 
 class domainAccessController {
@@ -28,7 +28,7 @@ class domainAccessController {
         identifier,
         type,
         baseUrl,
-      } = req.body.OCXPayload;
+      } = req.body;
       const domainTable = {
         table_name: 'domain_access',
         data: {
@@ -47,6 +47,7 @@ class domainAccessController {
         data: { ...response },
       });
     } catch (error) {
+      // console.log(error);
       return serverError(req, res, 500, { message: error.message });
     }
   }
@@ -62,20 +63,15 @@ class domainAccessController {
    */
   static async find(req, res) {
     try {
-      const {
-        domain_name,
-        domain_hosts_id,
-        type,
-        identifier,
-      } = req.body.OCXPayload;
+      // const { domain_name, domain_hosts_id, type, identifier } = req.body;
       const url = searchEntity()['url'];
       const searchData = {
         table_name: 'domain_access',
         where: [
-          { column: 'domain_name', operation: '=', value: domain_name },
-          { column: 'identifier', operation: '=', value: identifier },
-          { column: 'domain_hosts_id', operation: '=', value: domain_hosts_id },
-          { column: 'type', operation: '=', value: type },
+          { column: 'id', operation: '=', value: req.params.id },
+          // { column: 'identifier', operation: '=', value: identifier },
+          // { column: 'domain_hosts_id', operation: '=', value: domain_hosts_id },
+          // { column: 'type', operation: '=', value: type },
         ],
         joins: [],
         reverse_joins: [],
@@ -83,7 +79,7 @@ class domainAccessController {
         count: null,
         pagination: null,
       };
-      const response = await Get(url, searchData);
+      const response = await Post(url, searchData);
       if (response.data.length < 1) {
         return serverResponse(req, res, 201, {
           message: 'domain does not exist',
@@ -100,7 +96,7 @@ class domainAccessController {
       //     ...payload,
       //   },
       // });
-      console.log(response, 'this is the response data>>>>');
+      // console.log(response, 'this is the response data>>>>');
       serverResponse(req, res, 200, {
         message: 'domain info fetched successfully',
         ...response.data,
@@ -132,7 +128,7 @@ class domainAccessController {
         count: null,
         pagination: null,
       };
-      const response = await Get(url, searchData);
+      const response = await Post(url, searchData);
       if (response.data.length < 1) {
         return serverResponse(req, res, 201, {
           message: 'no domain exists here',
@@ -149,7 +145,7 @@ class domainAccessController {
       //     ...payload,
       //   },
       // });
-      console.log(response, 'this is the response data>>>>');
+      // console.log(response, 'this is the response data>>>>');
       serverResponse(req, res, 200, {
         message: 'domain accesses fetched successfully',
         ...response.data,
@@ -170,30 +166,25 @@ class domainAccessController {
    */
   static async remove(req, res) {
     try {
-      const {
-        domain_name,
-        domain_hosts_id,
-        type,
-        baseUrl,
-      } = req.body.OCXPayload;
+      // const { domain_name, domain_hosts_id, type, baseUrl } = req.body;
       const domainTable = {
         table_name: 'domain_access',
         where: [
-          { column: 'domain_name', operation: '=', value: domain_name },
-          { column: 'domain_hosts_id', operation: '=', value: domain_hosts_id },
-          { column: 'type', operation: '=', value: type },
-          { column: 'baseUrl', operation: '=', value: baseUrl },
+          { column: 'id', operation: '=', value: req.params.id },
+          // { column: 'domain_hosts_id', operation: '=', value: domain_hosts_id },
+          // { column: 'type', operation: '=', value: type },
+          // { column: 'baseUrl', operation: '=', value: baseUrl },
         ],
         order: { column: 'domain_name', operation: 'asc' },
         count: null,
       };
-      const response = await Delete(removeEntity()['url'], domainTable);
+      const response = await Post(removeEntity()['url'], domainTable);
       serverResponse(req, res, 200, {
         message: `domain removed successfully`,
         response,
       });
     } catch (error) {
-      console.log(error, 'this is the error');
+      // console.log(error, 'this is the error');
       return serverError(req, res, 500, { message: error.message });
     }
   }

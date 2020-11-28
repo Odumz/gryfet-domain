@@ -9,18 +9,42 @@ const Post = async (url, data) => {
       ...data,
     },
   };
+  // console.log(payload);
   const response = await axios.post(url, {
     ...payload,
   });
   return response.data.OCXPayload;
 };
 
-const Get = async (url) => {
-  await axios.get(url);
+const Get = async (url, data) => {
+  const payload = {
+    OCXSchema: 'v1',
+    OCXType: 'Request',
+    OCXComponent: 'OCXData',
+    OCXPayload: {
+      ...data,
+    },
+  };
+  // console.log(payload);
+  const response = await axios.get(url, {
+    ...payload,
+  });
+  return response.data.OCXPayload;
 };
 
 const Patch = async (url, data) => {
-  await axios.patch(url, data);
+  const payload = {
+    OCXSchema: 'v1',
+    OCXType: 'Request',
+    OCXComponent: 'OCXData',
+    OCXPayload: {
+      ...data,
+    },
+  };
+  const response = await axios.patch(url, {
+    ...payload,
+  });
+  return response.data.OCXPayload;
 };
 
 const Delete = async (url, data) => {
@@ -32,7 +56,7 @@ const Delete = async (url, data) => {
       ...data,
     },
   };
-  const response = await axios.post(url, {
+  const response = await axios.delete(url, {
     ...payload,
   });
   return response.data.OCXPayload;
