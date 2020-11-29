@@ -51,6 +51,24 @@ router.get('/fetch/:id', verification, domainAccessController.find);
 
 /**
  * @swagger
+ * /api/v1/domain_access/check:
+ *  get:
+ *    security:
+ *      - bearerAuth: []
+ *    summary: Route for get all domain_accesses in domain microservice
+ *    description: get all domain_accesses in domain microservice
+ *    consumes:
+ *    - application/json
+ *    responses:
+ *      '200':
+ *        description: OK
+ *      '409':
+ *        description: conflicts, no domain_access found
+ */
+router.post('/check', verification, domainAccessController.check);
+
+/**
+ * @swagger
  * /api/v1/domain_access/fetch:
  *  get:
  *    security:

@@ -53,6 +53,54 @@ class domainAccessController {
   }
 
   /**
+   * @name check
+   * @async
+   * @static
+   * @memberof domainAccessController
+   * @param {Object} req express request object
+   * @param {Object} res express response object
+   * @returns {JSON} JSON object with details of new user
+   */
+  static async check(req, res) {
+    try {
+      const { domain_name } = req.body;
+      console.log(domain_name);
+      // const subdomain_name = domain_name.split('.').pop();
+      // const remove_sub = domain_name.indexOf('.');
+      // console.log(remove_sub);
+      const subdomain_name = domain_name.substring(
+        domain_name.indexOf('.') + 1
+      );
+      console.log(subdomain_name);
+      const url = searchEntity()['url'];
+      console.log(url);
+      const searchData = {
+        table_name: 'domain_hosts',
+        where: [
+          { column: 'domain_name', operation: '=', value: subdomain_name },
+        ],
+        joins: [],
+        reverse_joins: [],
+        order: { column: 'id', operation: 'asc' },
+        count: null,
+        pagination: null,
+      };
+      const response = await Post(url, searchData);
+      if (response.data.length < 1) {
+        return serverResponse(req, res, 201, {
+          message: 'domain does not exist',
+        });
+      }
+      serverResponse(req, res, 200, {
+        message: 'domain info fetched successfully',
+        ...response.data,
+      });
+    } catch (error) {
+      return serverError(req, res, 500, { message: error.message });
+    }
+  }
+
+  /**
    * @name get
    * @async
    * @static

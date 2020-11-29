@@ -9,7 +9,7 @@ const Post = async (url, data) => {
       ...data,
     },
   };
-  // console.log(payload);
+  console.log(payload);
   const response = await axios.post(url, {
     ...payload,
   });
@@ -25,7 +25,7 @@ const Get = async (url, data) => {
       ...data,
     },
   };
-  // console.log(payload);
+  console.log(payload);
   const response = await axios.get(url, {
     ...payload,
   });
