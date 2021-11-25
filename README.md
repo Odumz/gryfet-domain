@@ -1,2 +1,2 @@
-# octopusx-domain
-Octopus X Domain Service
+# gryfet-domain
+Gryfet Domain Service
